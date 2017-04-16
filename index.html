@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+	body {
+		margin: 32px;
+	}
+	.box {
+		position: relative;
+		width: 252px;
+		height: 252px;
+		padding: 4px;
+		background-color: #777;
+		color: #EEE;
+		overflow: hidden;
+		z-index: 110;
+	}
+
+	.box-width {
+		display: inline-block;
+		width: 256px;
+		text-align: right;
+		vertical-align: top;
+	}
+
+	.info {
+		display: inline-block;
+	}
+
+	ul.is-what {
+		position: relative;
+		padding: 0;
+		margin: 0;
+		top: 0px;
+		z-index: 120;
+
+		transition: top 1s;
+		-moz-transition: top 1s;
+		-webkit-transition: top 1s;
+		-o-transition: top 1s;
+	}
+	
+	li.is-this {
+		list-style-type: none;
+		color: #777;
+	}
+
+	h1.wolfd {
+		display: inline-block;
+		font-family: sans-serif;
+		font-weight: bolder;
+		font-size: 40pt;
+		margin: 0;
+		padding: 0;
+		width: 252px;
+		line-height: 252px;
+		text-align: center;
+		bottom: 0;
+	}
+
+	.smooth {
+		color: #777;
+		margin: 0;
+		font-size: 16pt;
+		font-family: sans-serif;
+		font-weight: lighter;
+	}
+
+	.noheight {
+		height: 0;
+	}
+
+	#is-in-box {
+		transition: bottom 1s;
+		-moz-transition: bottom 1s;
+		-webkit-transition: bottom 1s;
+		-o-transition: bottom 1s;
+
+		position: absolute;
+		width: 252px;
+		bottom: 0px;
+		text-align: right;
+		color: #EEE !important;
+	}
+
+	#is-out-of-box {
+		transition: top 1s;
+		-moz-transition: top 1s;
+		-webkit-transition: top 1s;
+		-o-transition: top 1s;
+
+		position: absolute;
+		width: 256px;
+		text-align: right;
+		color: #777 !important;
+
+		z-index: 100;
+	}
+</style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55492261-1', 'auto');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+	<div class="box">
+		<h1 class="wolfd">wolfd</h1>
+		<p id="is-in-box" class="smooth">is</p>
+	</div>
+	<div class="box-width noheight">
+		<p id="is-out-of-box" class="smooth">is</p>
+	</div>
+	<div class="info">
+		<ul class="is-what">
+			<li class="is-this smooth">Danny Wolf.</li>
+			<li class="is-this smooth">a Developer.</li>
+			<li class="is-this smooth">studying at <a class="smooth" href="http://www.olin.edu/">Olin College</a>.</li>
+			<li class="is-this smooth">on <a class="smooth" href="https://github.com/wolfd">GitHub</a>.</li>
+			<li class="is-this smooth">on <a class="smooth" href="https://www.linkedin.com/in/wolfd/">LinkedIn</a>.</li>
+		</ul>
+	</div>
+	<script>
+		var list = document.querySelectorAll("ul")[0];
+		var listItems = document.querySelectorAll("li");
+		var isIn = document.querySelectorAll("#is-in-box")[0];
+		var isOut = document.querySelectorAll("#is-out-of-box")[0];
+		var images = document.querySelectorAll("#images")[0];
+		var isInitialTop = isIn.getBoundingClientRect().top;
+		var resetIsPosition;
+		
+		isOut.style.top = isInitialTop + "px";
+		isOut.style.display = "block";
+
+		for (var i = 0; i < listItems.length; i++) {
+			listItems[i].onmouseover = function(){
+				isIn.style.bottom = "-" + (this.getBoundingClientRect().top - isInitialTop) + "px";
+				isOut.style.top = "" + (this.getBoundingClientRect().top) + "px";
+				clearTimeout(resetIsPosition);
+			};
+		};
+
+		list.onmouseout = function(){
+			resetIsPosition = setTimeout(function(){ isIn.style.bottom = "0px"; isOut.style.top = isInitialTop + "px"; }, 1000);
+		};
+	</script>
+</body>
+</html>
